@@ -13,9 +13,9 @@ pin = {
 
 
 def set_all_pins(val):
-    pi.set_PWM_dutycycle(pin.red, val)
-    pi.set_PWM_dutycycle(pin.green, val)
-    pi.set_PWM_dutycycle(pin.blue, val)
+    pi.set_PWM_dutycycle(pin['red'], val)
+    pi.set_PWM_dutycycle(pin['green'], val)
+    pi.set_PWM_dutycycle(pin['blue'], val)
 
 
 # HTTPRequestHandler class
