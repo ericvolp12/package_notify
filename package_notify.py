@@ -5,10 +5,11 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 pending_package_count = 0
 
 pi = pigpio.pi()
-pin = {}
-pin.red = 17
-pin.green = 22
-pin.blue = 24
+pin = {
+    'red': 17,
+    'green': 22,
+    'blue': 24
+}
 
 
 def set_all_pins(val):
