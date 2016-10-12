@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import pigpio
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
