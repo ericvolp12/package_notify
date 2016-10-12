@@ -2,8 +2,7 @@
 import pigpio
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
-# Tracks the number of packages waiting to be picked up
-pending_package_count = 0
+
 
 pi = pigpio.pi()
 pin = {
@@ -11,6 +10,9 @@ pin = {
     'green': 22,
     'blue': 24
 }
+
+# Tracks the number of packages waiting to be picked up
+pending_package_count = 0
 
 
 def set_color(color):
@@ -48,6 +50,11 @@ class TestHTTPServer_RequestHandler(BaseHTTPRequestHandler):
         response_code = 404
 
         path = self.path[1::]
+
+        if path == "":
+            print("Checking the package queue.")
+            response_code = 200
+            message = "Pending Packages: " + str(pending_package_count)
 
         if path == "released_package":
             print("Package was released!\n")
