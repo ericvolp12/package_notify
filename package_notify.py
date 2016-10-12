@@ -13,10 +13,27 @@ pin = {
 }
 
 
-def set_all_pins(val):
-    pi.set_PWM_dutycycle(pin['red'], val)
-    pi.set_PWM_dutycycle(pin['green'], val)
-    pi.set_PWM_dutycycle(pin['blue'], val)
+def set_color(color):
+    if color == "yellow":
+        set_leds(255, 255, 0)
+        return
+    elif color == "orange":
+        set_leds(244, 160, 0)
+        return
+    elif color == "red":
+        set_leds(255, 0, 0)
+        return
+    elif color == "purple":
+        set_leds(165, 0, 255)
+        return
+    set_leds(0, 0, 0)
+    return
+
+
+def set_leds(r, g, b):
+    pi.set_PWM_dutycycle(pin['red'], r)
+    pi.set_PWM_dutycycle(pin['green'], g)
+    pi.set_PWM_dutycycle(pin['blue'], b)
 
 
 # HTTPRequestHandler class
@@ -38,7 +55,7 @@ class TestHTTPServer_RequestHandler(BaseHTTPRequestHandler):
             pending_package_count -= 1
             message = "Package was released!<br>Total pending packages: " + str(pending_package_count)
             if pending_package_count <= 0:
-                set_all_pins(0)
+                set_color()
 
         elif path == "new_package":
             print("New package was received!\n")
@@ -46,13 +63,13 @@ class TestHTTPServer_RequestHandler(BaseHTTPRequestHandler):
             pending_package_count += 1
             message = "New package was received!<br>Total pending packages: " + str(pending_package_count)
             if pending_package_count == 1:
-                set_all_pins(100)
+                set_color("yellow")
             elif pending_package_count == 2:
-                set_all_pins(150)
+                set_color("orange")
             elif pending_package_count == 3:
-                set_all_pins(200)
+                set_color("red")
             elif pending_package_count > 0:
-                set_all_pins(255)
+                set_color("purple")
 
         self.send_response(response_code)
         self.send_header('Content-type', 'text/html')
