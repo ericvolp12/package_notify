@@ -28,7 +28,9 @@ def set_color(color):
     elif color == "purple":
         set_leds(165, 0, 255)
         return
-    set_leds(0, 0, 0)
+    elif color == "black":
+        set_leds(0, 0, 0)
+        return
     return
 
 
@@ -62,7 +64,7 @@ class TestHTTPServer_RequestHandler(BaseHTTPRequestHandler):
             pending_package_count -= 1
             message = "Package was released!<br>Total pending packages: " + str(pending_package_count)
             if pending_package_count <= 0:
-                set_color()
+                set_color("black")
 
         elif path == "new_package":
             print("New package was received!\n")
