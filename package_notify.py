@@ -16,14 +16,14 @@ pending_package_count = 0
 
 
 def set_color(color):
-    if color == "yellow":
-        set_leds(255, 255, 0)
-        return
-    elif color == "orange":
-        set_leds(244, 160, 0)
-        return
-    elif color == "red":
+    if color == "red":
         set_leds(255, 0, 0)
+        return
+    elif color == "blue":
+        set_leds(0, 255, 0)
+        return
+    elif color == "green":
+        set_leds(0, 0, 255)
         return
     elif color == "purple":
         set_leds(165, 0, 255)
@@ -63,7 +63,15 @@ class TestHTTPServer_RequestHandler(BaseHTTPRequestHandler):
             response_code = 200
             pending_package_count -= 1
             message = "Package was released!<br>Total pending packages: " + str(pending_package_count)
-            if pending_package_count <= 0:
+            if pending_package_count == 1:
+                set_color("red")
+            elif pending_package_count == 2:
+                set_color("blue")
+            elif pending_package_count == 3:
+                set_color("green")
+            elif pending_package_count > 3:
+                set_color("purple")
+            elif pending_package_count <= 0:
                 set_color("black")
 
         elif path == "new_package":
@@ -72,11 +80,11 @@ class TestHTTPServer_RequestHandler(BaseHTTPRequestHandler):
             pending_package_count += 1
             message = "New package was received!<br>Total pending packages: " + str(pending_package_count)
             if pending_package_count == 1:
-                set_color("yellow")
-            elif pending_package_count == 2:
-                set_color("orange")
-            elif pending_package_count == 3:
                 set_color("red")
+            elif pending_package_count == 2:
+                set_color("blue")
+            elif pending_package_count == 3:
+                set_color("green")
             elif pending_package_count > 0:
                 set_color("purple")
 
