@@ -13,7 +13,9 @@ pin = {
 
 # Tracks the number of packages waiting to be picked up
 pending_package_count = 0
-
+pi.set_PWM_frequency(pin['red'], 120)
+pi.set_PWM_frequency(pin['green'], 120)
+pi.set_PWM_frequency(pin['blue'], 120)
 
 def set_color(color):
     if color == "red":
